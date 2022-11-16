@@ -1,0 +1,24 @@
+name: Reusable workflow - Get inventory
+on: 
+  workflow_call:
+    secrets:
+      token:
+        required: true
+jobs:
+  get-inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout srw241/mock repo
+        uses: actions/checkout@v3
+        with:
+          repository: srw241/mock
+          ref: main
+          path: inventory
+          token: ${{ secrets.token }}
+      - name: Upload inventory and group vars
+        uses: actions/upload-artifact@v3
+        with:
+          name: inventory
+          path: |
+            inventory/ansible-inventory.yml
+            inventory/group_vars
