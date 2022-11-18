@@ -14,3 +14,11 @@ runs:
         ref: main
         path: inventory
         token: ${{ inputs.token }}
+    
+    - name: Copy ansible-inventory.yml and group_vars to repo workspace
+      run: |
+        cp ./inventory/ansible-inventory.yml $(pwd)
+        cp -R ./inventory/group_vars $(pwd)
+        rm -rf ./inventory
+        ls $(pwd)
+      shell: bash
